@@ -1,2 +1,1 @@
-export const  { BACKEND_URI } = import.meta.env
-
+export const { VITE_BACKEND_URI } = import.meta.env;

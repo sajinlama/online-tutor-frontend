@@ -1,23 +1,23 @@
 import { useParams, Navigate } from "react-router-dom";
 import QuizEngine from "./QuizEngine";
-import { BACKEND_URI } from "@/config/env";
+import { VITE_BACKEND_URI } from "@/config/env";
 
 // Map URL parameter names to specific endpoint setups
 const SUBJECT_CONFIG: Record<string, { name: string; get: string; submit: string }> = {
   maths: {
     name: "Mathematics",
-    get: `${BACKEND_URI}/api/getmathQuestion`,
-    submit: `{BACKEND_URI}/api/updateScore`
+    get: `${VITE_BACKEND_URI}/api/getmathQuestion`,
+    submit: `{VITE_BACKEND_URI}/api/updateScore`
   },
   science: {
     name: "Science",
-    get: `${BACKEND_URI}/api/getScienceQuestion`,
-    submit: `{BACKEND_URI}/api/updateScince`
+    get: `${VITE_BACKEND_URI}/api/getScienceQuestion`,
+    submit: `{VITE_BACKEND_URI}/api/updateScince`
   },
   english: {
     name: "English",
-    get: `${BACKEND_URI}/api/getEnglishQuestion`,
-    submit: `${BACKEND_URI}/api/updateEng`
+    get: `${VITE_BACKEND_URI}/api/getEnglishQuestion`,
+    submit: `${VITE_BACKEND_URI}/api/updateEng`
   }
 };
 

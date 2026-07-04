@@ -1,12 +1,12 @@
 import QuizEngine from "./QuizEngine";
-import { BACKEND_URI } from "@/config/env";
+import { VITE_BACKEND_URI } from "@/config/env";
 
 export default function Science() {
   return (
     <QuizEngine 
       subjectName="Science"
-      getEndpoint={`${BACKEND_URI}/api/getScienceQuestion`}
-      submitEndpoint={`${BACKEND_URI}/api/updateScince`}
+      getEndpoint={`${VITE_BACKEND_URI}/api/getScienceQuestion`}
+      submitEndpoint={`${VITE_BACKEND_URI}/api/updateScince`}
     />
   );
 }
