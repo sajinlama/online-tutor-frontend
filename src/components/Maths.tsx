@@ -1,11 +1,12 @@
 import QuizEngine from "./QuizEngine";
+import { BACKEND_URI } from "@/config/env";
 
 export default function Maths() {
   return (
     <QuizEngine 
       subjectName="Mathematics"
-      getEndpoint="https://online-tutor-backend-six.vercel.app/api/getMathsQuestion"
-      submitEndpoint="https://online-tutor-backend-six.vercel.app/api/updateMaths"
+      getEndpoint={`${BACKEND_URI}/api/getMathsQuestion`}
+      submitEndpoint={`${BACKEND_URI}/api/updateMaths`}
     />
   );
 }

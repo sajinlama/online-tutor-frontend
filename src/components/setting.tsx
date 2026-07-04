@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { BACKEND_URI } from "@/config/env";
 import { 
   Save, Moon, Sun, LogOut, User, Lock, Paintbrush, 
   ShieldAlert, AlertCircle, CheckCircle2 
@@ -9,8 +10,8 @@ import {
 import { useTheme } from "@/contexapi/themeprovider";
 
 const API_ENDPOINTS = {
-  CHANGE_PASSWORD: "https://online-tutor-backend-six.vercel.app/api/users/change-password",
-  UPDATE_PROFILE: "https://online-tutor-backend-six.vercel.app/api/users/update-profile",
+  CHANGE_PASSWORD: `${BACKEND_URI}/api/users/change-password`,
+  UPDATE_PROFILE: `${BACKEND_URI}/api/users/update-profile`,
 };
 
 export default function Setting() {

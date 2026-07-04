@@ -1,4 +1,6 @@
+
 "use client";
+import { BACKEND_URI } from "@/config/env";
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -7,7 +9,7 @@ import { Eye, EyeOff, BookOpen, ArrowRight, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const URL = "https://online-tutor-backend-six.vercel.app/api/login";
+const URL = `${BACKEND_URI}/api/login`;
 
 export default function Login() {
   const navigate = useNavigate();

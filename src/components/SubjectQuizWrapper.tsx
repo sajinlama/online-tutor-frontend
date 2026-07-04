@@ -1,22 +1,23 @@
 import { useParams, Navigate } from "react-router-dom";
 import QuizEngine from "./QuizEngine";
+import { BACKEND_URI } from "@/config/env";
 
 // Map URL parameter names to specific endpoint setups
 const SUBJECT_CONFIG: Record<string, { name: string; get: string; submit: string }> = {
   maths: {
     name: "Mathematics",
-    get: "https://online-tutor-backend-six.vercel.app/api/getmathQuestion",
-    submit: "https://online-tutor-backend-six.vercel.app/api/updateScore"
+    get: `${BACKEND_URI}/api/getmathQuestion`,
+    submit: `{BACKEND_URI}/api/updateScore`
   },
   science: {
     name: "Science",
-    get: "https://online-tutor-backend-six.vercel.app/api/getScienceQuestion",
-    submit: "https://online-tutor-backend-six.vercel.app/api/updateScince"
+    get: `${BACKEND_URI}/api/getScienceQuestion`,
+    submit: `{BACKEND_URI}/api/updateScince`
   },
   english: {
     name: "English",
-    get: "https://online-tutor-backend-six.vercel.app/api/getEnglishQuestion",
-    submit: "https://online-tutor-backend-six.vercel.app/api/updateEng"
+    get: `${BACKEND_URI}/api/getEnglishQuestion`,
+    submit: `${BACKEND_URI}/api/updateEng`
   }
 };
 

@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { BACKEND_URI } from "@/config/env";
 import axios from "axios";
 
 const ProtectedRoute = () => {
@@ -10,7 +11,7 @@ const ProtectedRoute = () => {
     const checkAuth = async () => {
       try {
         const res = await axios.get(
-          "https://online-tutor-backend-six.vercel.app/api/auth/verify",
+          `${BACKEND_URI}/api/auth/verify`,
           { withCredentials: true }
         );
 

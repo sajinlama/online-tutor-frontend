@@ -1,11 +1,12 @@
 import QuizEngine from "./QuizEngine";
+import { BACKEND_URI } from "@/config/env";
 
 export default function English() {
   return (
     <QuizEngine 
       subjectName="English"
-      getEndpoint="https://online-tutor-backend-six.vercel.app/api/getEnglishQuestion"
-      submitEndpoint="https://online-tutor-backend-six.vercel.app/api/updateEng"
+      getEndpoint={`${BACKEND_URI}/api/getEnglishQuestion`}
+      submitEndpoint={`${BACKEND_URI}/api/updateEng"`}
     />
   );
 }

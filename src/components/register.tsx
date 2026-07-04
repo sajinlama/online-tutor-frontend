@@ -5,9 +5,11 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { BookOpen, ArrowRight, Loader2 } from "lucide-react";
+import { BACKEND_URI } from "@/config/env";
+
 import axios from "axios";
 
-const URI = "https://online-tutor-backend-six.vercel.app/api/register";
+const URI = `${BACKEND_URI}/api/register`;
 
 export default function Register() {
   const navigate = useNavigate();
