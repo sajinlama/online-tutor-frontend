@@ -4,8 +4,8 @@ export default function Science() {
   return (
     <QuizEngine 
       subjectName="Science"
-      getEndpoint="online-tutor-backend-six.vercel.app/api/getScienceQuestion"
-      submitEndpoint="online-tutor-backend-six.vercel.app/api/updateScince" 
+      getEndpoint="https://online-tutor-backend-six.vercel.app/api/getScienceQuestion"
+      submitEndpoint="https://online-tutor-backend-six.vercel.app/api/updateScince" 
     />
   );
 }

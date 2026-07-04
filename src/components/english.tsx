@@ -4,8 +4,8 @@ export default function English() {
   return (
     <QuizEngine 
       subjectName="English"
-      getEndpoint="online-tutor-backend-six.vercel.app/api/getEnglishQuestion"
-      submitEndpoint="online-tutor-backend-six.vercel.app/api/updateEng"
+      getEndpoint="https://online-tutor-backend-six.vercel.app/api/getEnglishQuestion"
+      submitEndpoint="https://online-tutor-backend-six.vercel.app/api/updateEng"
     />
   );
 }

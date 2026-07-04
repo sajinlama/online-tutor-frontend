@@ -7,7 +7,7 @@ import { Eye, EyeOff, BookOpen, ArrowRight, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const URL = "online-tutor-backend-six.vercel.app/api/login";
+const URL = "https://online-tutor-backend-six.vercel.app/api/login";
 
 export default function Login() {
   const navigate = useNavigate();

@@ -9,8 +9,8 @@ import {
 import { useTheme } from "@/contexapi/themeprovider";
 
 const API_ENDPOINTS = {
-  CHANGE_PASSWORD: "online-tutor-backend-six.vercel.app/api/users/change-password",
-  UPDATE_PROFILE: "online-tutor-backend-six.vercel.app/api/users/update-profile",
+  CHANGE_PASSWORD: "https://online-tutor-backend-six.vercel.app/api/users/change-password",
+  UPDATE_PROFILE: "https://online-tutor-backend-six.vercel.app/api/users/update-profile",
 };
 
 export default function Setting() {

@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BookOpen, ArrowRight, Loader2 } from "lucide-react";
 import axios from "axios";
 
-const URI = "online-tutor-backend-six.vercel.app/api/register";
+const URI = "https://online-tutor-backend-six.vercel.app/api/register";
 
 export default function Register() {
   const navigate = useNavigate();

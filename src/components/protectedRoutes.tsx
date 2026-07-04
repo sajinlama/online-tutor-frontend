@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
     const checkAuth = async () => {
       try {
         const res = await axios.get(
-          "online-tutor-backend-six.vercel.app/api/auth/verify",
+          "https://online-tutor-backend-six.vercel.app/api/auth/verify",
           { withCredentials: true }
         );
 

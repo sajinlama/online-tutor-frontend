@@ -5,18 +5,18 @@ import QuizEngine from "./QuizEngine";
 const SUBJECT_CONFIG: Record<string, { name: string; get: string; submit: string }> = {
   maths: {
     name: "Mathematics",
-    get: "online-tutor-backend-six.vercel.app/api/getmathQuestion",
-    submit: "online-tutor-backend-six.vercel.app/api/updateScore"
+    get: "https://online-tutor-backend-six.vercel.app/api/getmathQuestion",
+    submit: "https://online-tutor-backend-six.vercel.app/api/updateScore"
   },
   science: {
     name: "Science",
-    get: "online-tutor-backend-six.vercel.app/api/getScienceQuestion",
-    submit: "online-tutor-backend-six.vercel.app/api/updateScince"
+    get: "https://online-tutor-backend-six.vercel.app/api/getScienceQuestion",
+    submit: "https://online-tutor-backend-six.vercel.app/api/updateScince"
   },
   english: {
     name: "English",
-    get: "online-tutor-backend-six.vercel.app/api/getEnglishQuestion",
-    submit: "online-tutor-backend-six.vercel.app/api/updateEng"
+    get: "https://online-tutor-backend-six.vercel.app/api/getEnglishQuestion",
+    submit: "https://online-tutor-backend-six.vercel.app/api/updateEng"
   }
 };
 
