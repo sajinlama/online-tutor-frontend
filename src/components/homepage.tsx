@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   BookOpen, ChevronRight, Menu, X, Star, 
-  ArrowUpRight, Sparkles, Sun, Moon, Laptop,
-  Activity, GraduationCap, CheckCircle2, ArrowRight
+  ArrowUpRight, Sparkles, Sun, Moon,
+  Activity, CheckCircle2
 } from 'lucide-react';
 
 interface Subject {
