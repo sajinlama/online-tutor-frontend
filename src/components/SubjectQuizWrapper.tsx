@@ -7,12 +7,12 @@ const SUBJECT_CONFIG: Record<string, { name: string; get: string; submit: string
   maths: {
     name: "Mathematics",
     get: `${VITE_BACKEND_URI}/api/getmathQuestion`,
-    submit: `{VITE_BACKEND_URI}/api/updateScore`
+    submit: `${VITE_BACKEND_URI}/api/updateScore`
   },
   science: {
     name: "Science",
     get: `${VITE_BACKEND_URI}/api/getScienceQuestion`,
-    submit: `{VITE_BACKEND_URI}/api/updateScince`
+    submit: `${VITE_BACKEND_URI}/api/updateScince`
   },
   english: {
     name: "English",

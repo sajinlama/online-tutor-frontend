@@ -6,7 +6,7 @@ export default function Maths() {
     <QuizEngine 
       subjectName="Mathematics"
       getEndpoint={`${VITE_BACKEND_URI}/api/getMathsQuestion`}
-      submitEndpoint={`${VITE_BACKEND_URI}/api/updateMaths`}
+      submitEndpoint={`${VITE_BACKEND_URI}/api/updateScore`}
     />
   );
 }

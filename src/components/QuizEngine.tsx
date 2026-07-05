@@ -82,6 +82,7 @@ export default function QuizEngine({ getEndpoint, submitEndpoint, subjectName }:
 
   const handleSubmitAnswer = useCallback(() => {
     if (selectedOptionIndex === null || submitting) return;
+    console.log("hello this is from the ",subjectName);
 
     const currentQ = questions[currentQuestion];
     const selectedAnswer = currentQ.options[selectedOptionIndex];

@@ -3,6 +3,7 @@
 import { TrendingUp, Award, Mail, Sparkles, BookOpen, BookCheck, ShieldAlert, GraduationCap } from "lucide-react";
 import { LabelList, Pie, PieChart } from "recharts";
 import { useEffect, useState } from "react";
+import { VITE_BACKEND_URI } from "@/config/env";
 
 import {
   Card,
@@ -29,7 +30,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/getTotal', {
+        const response = await fetch(`${VITE_BACKEND_URI}/api/getTotal`, {
           credentials: "include"
         });
         const data = await response.json();

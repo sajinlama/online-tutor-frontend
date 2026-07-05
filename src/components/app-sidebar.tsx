@@ -38,12 +38,11 @@ const handleLogout = async () => {
   try {
     await fetch(`${VITE_BACKEND_URI}/api/logout`, {
       method: "POST",
-      credentials: "include",  // required so the cookie is sent/cleared cross-site
+      credentials: "include",  
     });
   } catch (error) {
     console.error("Logout error:", error);
   } finally {
-    localStorage.removeItem("username");
     window.location.href = "/login";
   }
 };
