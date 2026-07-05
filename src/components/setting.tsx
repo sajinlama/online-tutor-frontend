@@ -137,14 +137,21 @@ export default function Setting() {
     }
   };
 
-  const handleLogout = () => {
+const handleLogout = async () => {
+  try {
+    await fetch(`${VITE_BACKEND_URI}/api/logout`, {
+      method: "POST",
+      credentials: "include", // needed so the cookie is sent
+    });
+  } catch (err) {
+    console.error("Logout request failed", err);
+  } finally {
     localStorage.removeItem("name");
     localStorage.removeItem("email");
     localStorage.removeItem("userId");
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     window.location.href = "/login";
-  };
-
+  }
+};
   return (
     <div className="min-h-screen w-full bg-[#fafafa] dark:bg-[#030303] text-zinc-900 dark:text-zinc-100 font-sans antialiased relative p-6 md:p-10 transition-colors duration-300">
       <div className="w-full max-w-7xl mx-auto space-y-6 relative z-10">
