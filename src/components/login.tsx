@@ -23,6 +23,7 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    console.log(URL);
     
     const loginData = { email, password };
 

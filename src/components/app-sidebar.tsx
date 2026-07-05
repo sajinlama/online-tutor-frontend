@@ -1,6 +1,7 @@
 import { LogOut, Settings, SquareDashedBottom, Atom, Globe, Variable } from "lucide-react" 
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
+import { VITE_BACKEND_URI } from "@/config/env"
 import {
   Sidebar,
   SidebarContent,
@@ -33,11 +34,19 @@ export function AppSidebar() {
     if (storedUsername) setUsername(storedUsername)
   }, [])
 
-  const handleLogout = () => {
-    localStorage.removeItem("username")
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    window.location.href = "/login"
+const handleLogout = async () => {
+  try {
+    await fetch(`${VITE_BACKEND_URI}/api/logout`, {
+      method: "POST",
+      credentials: "include",  // required so the cookie is sent/cleared cross-site
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+  } finally {
+    localStorage.removeItem("username");
+    window.location.href = "/login";
   }
+};
 
   return (
     <Sidebar collapsible="icon" variant="floating">
