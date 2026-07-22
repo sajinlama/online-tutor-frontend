@@ -1,6 +1,6 @@
 "use client";
 
-import { TrendingUp, Award, Mail, Sparkles, BookOpen, BookCheck, ShieldAlert, GraduationCap } from "lucide-react";
+import { Award, Mail, Sparkles, BookOpen, BookCheck, ShieldAlert, GraduationCap, TrendingUp } from "lucide-react";
 import { LabelList, Pie, PieChart } from "recharts";
 import { useEffect, useState } from "react";
 import { VITE_BACKEND_URI } from "@/config/env";
@@ -48,7 +48,7 @@ function Dashboard() {
   if (loading) {
     return (
       <div className="min-h-screen w-full bg-[#fafafa] dark:bg-[#030303] flex flex-col justify-center items-center gap-3 font-sans antialiased">
-        <div className="w-10 h-10 border-2 border-zinc-200 dark:border-zinc-800 border-t-zinc-900 dark:border-t-zinc-100 rounded-full animate-spin" />
+        <div className="w-10 h-10 border-2 border-indigo-200 dark:border-indigo-950 border-t-indigo-600 rounded-full animate-spin" />
         <span className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Compiling Analytics...</span>
       </div>
     );
@@ -60,39 +60,38 @@ function Dashboard() {
   const totalMarks = mathsScore + scienceScore + englishScore;
 
   const chartData = [
-    { subject: "maths", score: mathsScore, fill: "#4f46e5" }, 
-    { subject: "science", score: scienceScore, fill: "#0d9488" }, 
-    { subject: "english", score: englishScore, fill: "#ea580c" } 
+    { subject: "maths", score: mathsScore, fill: "#6366f1" }, 
+    { subject: "science", score: scienceScore, fill: "#10b981" }, 
+    { subject: "english", score: englishScore, fill: "#f59e0b" } 
   ];
 
   const chartConfig: ChartConfig = {
     score: { label: "Score" },
-    maths: { label: "Mathematics", color: "#4f46e5" },
-    science: { label: "Science", color: "#0d9488" },
-    english: { label: "English", color: "#ea580c" }
+    maths: { label: "Mathematics", color: "#6366f1" },
+    science: { label: "Science", color: "#10b981" },
+    english: { label: "English", color: "#f59e0b" }
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#fafafa] dark:bg-[#030303] text-zinc-900 dark:text-zinc-100 font-sans selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black antialiased relative overflow-x-hidden p-6 md:p-10 transition-colors duration-300">
+    <div className="min-h-screen w-full bg-[#fafafa] dark:bg-[#030303] text-zinc-900 dark:text-zinc-100 font-sans selection:bg-indigo-500 selection:text-white antialiased relative overflow-x-hidden p-6 md:p-10 transition-colors duration-300">
       
-      {/* Background Decorative Mesh Flares */}
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-purple-500/5 dark:bg-purple-900/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[700px] h-[700px] bg-blue-500/5 dark:bg-blue-900/10 rounded-full blur-[160px] pointer-events-none" />
+      {/* Background Lighting Effects */}
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-indigo-500/10 dark:bg-indigo-900/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[700px] h-[700px] bg-emerald-500/10 dark:bg-emerald-900/15 rounded-full blur-[160px] pointer-events-none" />
 
-      {/* Main Full-Width Container */}
       <div className="w-full max-w-7xl mx-auto space-y-6 relative z-10">
         
-        {/* Full Width Navigation Banner */}
-        <div className="w-full bg-white/60 dark:bg-zinc-950/40 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300">
+        {/* Navigation / Profile Banner */}
+        <div className="w-full bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 shadow-sm transition-all duration-300">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center space-x-4">
-              <div className="w-14 h-14 bg-zinc-900 dark:bg-zinc-100 rounded-2xl flex items-center justify-center text-white dark:text-black font-bold text-xl shadow-sm group hover:rotate-3 transition-transform duration-300">
+              <div className="w-14 h-14 bg-gradient-to-tr from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/20 group hover:rotate-3 transition-transform duration-300">
                 {username?.charAt(0).toUpperCase()}
               </div>
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">{username}</h2>
-                  <div className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                  <div className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/60 dark:border-indigo-900/60 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
                     Active Student
                   </div>
                 </div>
@@ -103,22 +102,22 @@ function Dashboard() {
               </div>
             </div>
 
-            <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-900/60 border border-zinc-200/60 dark:border-zinc-800/80 text-xs font-semibold text-zinc-600 dark:text-zinc-400">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-zinc-100/70 dark:bg-zinc-900/60 border border-zinc-200/60 dark:border-zinc-800/80 text-xs font-semibold text-zinc-600 dark:text-zinc-400">
               <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
               <span>Academic Workspace Optimized</span>
             </div>
           </div>
         </div>
   
-        {/* Grid Layout: Main Performance Graph + Secondary Informational Cards */}
+        {/* Analytics Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          {/* Chart Wrapper - Occupies 7 units of space on large displays */}
+          {/* Main Pie Chart Panel */}
           <div className="lg:col-span-7 h-full">
-            <Card className="bg-white/60 dark:bg-zinc-950/40 backdrop-blur-xl border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl shadow-xl overflow-hidden h-full flex flex-col justify-between transition-all duration-300">
+            <Card className="bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl shadow-sm overflow-hidden h-full flex flex-col justify-between transition-all duration-300">
               <CardHeader className="items-center pb-2 border-b border-zinc-100 dark:border-zinc-900/60 p-6">
-                <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-900 rounded-xl flex items-center justify-center border border-zinc-200/60 dark:border-zinc-800 mb-2">
-                  <Award className="h-5 w-5 text-zinc-700 dark:text-zinc-300" />
+                <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-950/60 rounded-xl flex items-center justify-center border border-indigo-200/60 dark:border-indigo-900/60 mb-2">
+                  <Award className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <CardTitle className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Subject Performance Metrics</CardTitle>
                 <CardDescription className="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-4 text-xs font-medium text-zinc-500 dark:text-zinc-400 mt-1">
@@ -128,7 +127,7 @@ function Dashboard() {
                 </CardDescription>
               </CardHeader>
 
-              <CardContent className="flex justify-center items-center py-14 relative flex-1">
+              <CardContent className="flex justify-center items-center py-12 relative flex-1">
                 <ChartContainer
                   config={chartConfig}
                   className="mx-auto aspect-square w-full max-w-[260px] [&_.recharts-text]:fill-background"
@@ -143,7 +142,7 @@ function Dashboard() {
                         className="fill-white dark:fill-zinc-100 font-semibold"
                         stroke="none"
                         fontSize={11}
-                   formatter={(value:any) => String(chartConfig[value as string]?.label ?? value).substring(0, 5)}
+                        formatter={(value: any) => String(chartConfig[value as string]?.label ?? value).substring(0, 5)}
                       />
                     </Pie>
                   </PieChart>
@@ -151,27 +150,27 @@ function Dashboard() {
               </CardContent>
 
               <CardFooter className="flex-col gap-4 text-sm bg-zinc-50/50 dark:bg-zinc-900/20 p-6 border-t border-zinc-100 dark:border-zinc-900/60">
-                {/* Custom Legend Layout */}
+                {/* Custom Color Legend */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
-                  <div className="flex items-center justify-between sm:justify-start gap-3 p-3 bg-white/40 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/50 rounded-xl">
+                  <div className="flex items-center justify-between sm:justify-start gap-3 p-3 bg-white/50 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/50 rounded-xl">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#4f46e5]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#6366f1]" />
                       <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Mathematics</span>
                     </div>
                     <span className="text-sm font-bold text-zinc-800 dark:text-zinc-200 ml-auto">{mathsScore}</span>
                   </div>
 
-                  <div className="flex items-center justify-between sm:justify-start gap-3 p-3 bg-white/40 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/50 rounded-xl">
+                  <div className="flex items-center justify-between sm:justify-start gap-3 p-3 bg-white/50 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/50 rounded-xl">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#0d9488]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#10b981]" />
                       <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Science</span>
                     </div>
                     <span className="text-sm font-bold text-zinc-800 dark:text-zinc-200 ml-auto">{scienceScore}</span>
                   </div>
 
-                  <div className="flex items-center justify-between sm:justify-start gap-3 p-3 bg-white/40 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/50 rounded-xl">
+                  <div className="flex items-center justify-between sm:justify-start gap-3 p-3 bg-white/50 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/50 rounded-xl">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#ea580c]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]" />
                       <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">English</span>
                     </div>
                     <span className="text-sm font-bold text-zinc-800 dark:text-zinc-200 ml-auto">{englishScore}</span>
@@ -181,13 +180,13 @@ function Dashboard() {
             </Card>
           </div>
 
-          {/* Sidebar Insights Panel - Occupies 5 units of space */}
+          {/* Strategic Insight Column */}
           <div className="lg:col-span-5 space-y-4 h-full flex flex-col">
             
-            {/* Strongest Area Widget */}
-            <div className="bg-white/60 dark:bg-zinc-950/40 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-5 shadow-md flex items-center justify-between group hover:border-emerald-500/30 transition-all duration-300">
+            {/* Strong Area */}
+            <div className="bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-emerald-500/40 transition-all duration-300">
               <div className="space-y-1">
-                <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-400 dark:text-zinc-500 block">Strongest Subject Field</span>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-400 dark:text-zinc-500 block">Strongest Field</span>
                 <h3 className="text-lg font-bold capitalize text-zinc-800 dark:text-zinc-100">
                   {userData?.overallPerformance?.strongestSubject || "Not Evaluated"}
                 </h3>
@@ -197,31 +196,31 @@ function Dashboard() {
               </div>
             </div>
 
-            {/* Weakest Area Widget */}
-            <div className="bg-white/60 dark:bg-zinc-950/40 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-5 shadow-md flex items-center justify-between group hover:border-orange-500/30 transition-all duration-300">
+            {/* Weak Area */}
+            <div className="bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-amber-500/40 transition-all duration-300">
               <div className="space-y-1">
                 <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-400 dark:text-zinc-500 block">Requires Attention</span>
                 <h3 className="text-lg font-bold capitalize text-zinc-800 dark:text-zinc-100">
                   {userData?.overallPerformance?.weakestSubject || "Not Evaluated"}
                 </h3>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 flex items-center justify-center shadow-inner">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center shadow-inner">
                 <ShieldAlert className="h-5 w-5 group-hover:scale-110 transition-transform" />
               </div>
             </div>
 
-            {/* Course Progress Information Card */}
-            <div className="bg-white/60 dark:bg-zinc-950/40 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 shadow-md flex-1 flex flex-col justify-between space-y-4">
+            {/* EduMentor Insight Box */}
+            <div className="bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 shadow-sm flex-1 flex flex-col justify-between space-y-4">
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-zinc-800 dark:text-zinc-200 font-bold text-sm tracking-tight">
-                  <GraduationCap className="h-4 w-4 text-purple-500" />
+                  <GraduationCap className="h-4 w-4 text-indigo-500" />
                   <span>EduMentor Pipeline Insight</span>
                 </div>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                  Your metrics are updated live using performance tracking across active diagnostic mock tasks. Focus additional structural hours towards your weaker frameworks to safely normalize the distribution curve.
+                  Your metrics update live based on your completed evaluations. Dedicating extra focus toward weaker chapters will help balance your score across all subjects.
                 </p>
               </div>
-              <div className="pt-2 border-t border-zinc-100 dark:border-zinc-900/60 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+              <div className="pt-3 border-t border-zinc-100 dark:border-zinc-900/60 flex items-center justify-between text-[11px] font-mono text-zinc-400">
                 <span>Data sync state: verified</span>
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
@@ -237,7 +236,7 @@ function Dashboard() {
 
 function themeInsideCssHack() {
   if (typeof window !== "undefined") {
-    return window.document.documentElement.classList.contains("dark") ? "#09090b" : "#ffffff";
+    return window.document.documentElement.classList.contains("dark") ? "#030303" : "#ffffff";
   }
   return "#ffffff";
 }

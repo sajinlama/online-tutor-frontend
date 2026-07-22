@@ -5,7 +5,7 @@ import axios from "axios";
 import { VITE_BACKEND_URI } from "@/config/env";
 import { 
   Save, Moon, Sun, LogOut, User, Lock, Paintbrush, 
-  ShieldAlert, AlertCircle, CheckCircle2 
+  ShieldAlert, AlertCircle, CheckCircle2, Sparkles 
 } from "lucide-react";
 import { useTheme } from "@/contexapi/themeprovider";
 
@@ -43,7 +43,7 @@ export default function Setting() {
     setNewName(username);
   }, []);
 
-  // Alert cleanups automatically after a few seconds for better UX
+  // Alert cleanup timeouts
   useEffect(() => {
     if (profileAlert.show) {
       const t = setTimeout(() => setProfileAlert(p => ({ ...p, show: false })), 4000);
@@ -64,7 +64,7 @@ export default function Setting() {
     if (newPassword !== confirmPassword) {
       setPasswordAlert({
         show: true,
-        message: "New passwords don't match match verification setup.",
+        message: "New passwords do not match. Please verify your entry.",
         type: "error",
       });
       return;
@@ -73,7 +73,7 @@ export default function Setting() {
     if (newPassword.length < 8) {
       setPasswordAlert({
         show: true,
-        message: "Password safety threshold requires at least 8 characters.",
+        message: "Password must be at least 8 characters long.",
         type: "error",
       });
       return;
@@ -92,7 +92,7 @@ export default function Setting() {
       
       setPasswordAlert({
         show: true,
-        message: "Security credentials updated successfully.",
+        message: "Password updated successfully.",
         type: "success",
       });
       
@@ -100,7 +100,7 @@ export default function Setting() {
       setNewPassword("");
       setConfirmPassword("");
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message || "Failed to update security framework.";
+      const errorMessage = error.response?.data?.message || error.message || "Failed to update password.";
       setPasswordAlert({ show: true, message: errorMessage, type: "error" });
     } finally {
       setIsUpdatingPassword(false);
@@ -126,66 +126,82 @@ export default function Setting() {
       
       setProfileAlert({
         show: true,
-        message: "Profile workspace updated successfully.",
+        message: "Profile name updated successfully.",
         type: "success",
       });
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message || "Profile synchronization failure.";
+      const errorMessage = error.response?.data?.message || error.message || "Failed to update profile.";
       setProfileAlert({ show: true, message: errorMessage, type: "error" });
     } finally {
       setIsUpdatingProfile(false);
     }
   };
 
-const handleLogout = async () => {
-  try {
-    await fetch(`${VITE_BACKEND_URI}/api/logout`, {
-      method: "POST",
-      credentials: "include", // needed so the cookie is sent
-    });
-  } catch (err) {
-    console.error("Logout request failed", err);
-  } finally {
-    localStorage.removeItem("name");
-    localStorage.removeItem("email");
-    localStorage.removeItem("userId");
-    window.location.href = "/login";
-  }
-};
+  const handleLogout = async () => {
+    try {
+      await fetch(`${VITE_BACKEND_URI}/api/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (err) {
+      console.error("Logout request failed", err);
+    } finally {
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+      localStorage.removeItem("userId");
+      window.location.href = "/login";
+    }
+  };
+
   return (
-    <div className="min-h-screen w-full bg-[#fafafa] dark:bg-[#030303] text-zinc-900 dark:text-zinc-100 font-sans antialiased relative p-6 md:p-10 transition-colors duration-300">
+    <div className="min-h-screen w-full bg-[#fafafa] dark:bg-[#030303] text-zinc-900 dark:text-zinc-100 font-sans selection:bg-indigo-500 selection:text-white antialiased relative overflow-x-hidden p-6 md:p-10 transition-colors duration-300">
+      
+      {/* Background Mesh Glows */}
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-indigo-500/10 dark:bg-indigo-900/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[700px] h-[700px] bg-violet-500/10 dark:bg-violet-900/15 rounded-full blur-[160px] pointer-events-none" />
+
       <div className="w-full max-w-7xl mx-auto space-y-6 relative z-10">
         
-        {/* Module Header Bar Layout */}
-        <div className="w-full bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-5 shadow-sm flex items-center justify-between gap-4">
+        {/* Module Header Bar */}
+        <div className="w-full bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="flex items-center gap-2.5">
-              <h1 className="text-xl font-bold tracking-tight">System Settings</h1>
-            </div>
-            <p className="text-xs text-zinc-400 dark:text-zinc-500">Manage your profile, security settings, and environment workspace options</p>
+            <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+              Account & System Settings
+            </h1>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              Manage your personal profile, security credentials, and interface options
+            </p>
+          </div>
+
+          <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-zinc-100/70 dark:bg-zinc-900/60 border border-zinc-200/60 dark:border-zinc-800/80 text-xs font-semibold text-zinc-600 dark:text-zinc-400">
+            <Sparkles className="h-4 w-4 text-indigo-500 animate-pulse" />
+            <span>EduMentor Settings Workspace</span>
           </div>
         </div>
 
-        {/* Master Workspace Split Grid Layout */}
+        {/* Master Content Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          {/* Left Column: Forms and Configuration Module Controls */}
+          {/* Left Column: Form Settings */}
           <div className="lg:col-span-7 space-y-6">
             
-            {/* Profile Configuration Section */}
-            <div className="bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 md:p-8 shadow-xl space-y-6">
+            {/* Profile Section */}
+            <div className="bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 md:p-8 shadow-sm space-y-6">
               <div className="flex items-center gap-3 border-b border-zinc-100 dark:border-zinc-900/60 pb-4">
-                <div className="w-8 h-8 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-lg flex items-center justify-center shadow-sm">
-                  <User size={16} />
+                <div className="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-violet-600 text-white rounded-xl flex items-center justify-center shadow-md shadow-indigo-500/20">
+                  <User size={20} />
                 </div>
-                <h2 className="text-md font-bold tracking-tight">Profile Information</h2>
+                <div>
+                  <h2 className="text-base font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Profile Information</h2>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">Update how your name appears on your dashboard</p>
+                </div>
               </div>
 
               {profileAlert.show && (
                 <div className={`p-4 border rounded-xl flex items-start gap-3 text-xs font-medium transition-all duration-300 ${
                   profileAlert.type === "success" 
-                    ? "bg-emerald-500/5 border-emerald-500/10 text-emerald-600 dark:text-emerald-400" 
-                    : "bg-red-500/5 border-red-500/10 text-red-600 dark:text-red-400"
+                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:text-emerald-400" 
+                    : "bg-rose-500/10 border-rose-500/20 text-rose-700 dark:text-rose-400"
                 }`}>
                   {profileAlert.type === "success" ? <CheckCircle2 size={16} className="flex-shrink-0" /> : <AlertCircle size={16} className="flex-shrink-0" />}
                   <span>{profileAlert.message}</span>
@@ -202,9 +218,9 @@ const handleLogout = async () => {
                     id="email"
                     value={user.email}
                     disabled
-                    className="w-full p-3 border border-zinc-200 dark:border-zinc-800 rounded-xl bg-zinc-100 dark:bg-zinc-900/60 text-zinc-400 dark:text-zinc-500 text-sm select-none outline-none cursor-not-allowed"
+                    className="w-full p-3.5 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl bg-zinc-100/70 dark:bg-zinc-900/50 text-zinc-400 dark:text-zinc-500 text-sm select-none outline-none cursor-not-allowed"
                   />
-                  <p className="text-[11px] text-zinc-400 dark:text-zinc-500 pl-1">Primary authentication registry routing token cannot be modified.</p>
+                  <p className="text-[11px] text-zinc-400 dark:text-zinc-500 pl-1">Primary email identity cannot be changed.</p>
                 </div>
 
                 <div className="space-y-2">
@@ -216,8 +232,8 @@ const handleLogout = async () => {
                     id="name"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
-                    className="w-full p-3 border border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-sm focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors outline-none"
-                    placeholder="Enter system profile handle"
+                    className="w-full p-3.5 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl bg-white/80 dark:bg-zinc-900/80 text-zinc-800 dark:text-zinc-200 text-sm focus:border-indigo-500 dark:focus:border-indigo-500 transition-colors outline-none"
+                    placeholder="Enter full name"
                     required
                   />
                 </div>
@@ -226,29 +242,32 @@ const handleLogout = async () => {
                   <button
                     type="submit"
                     disabled={isUpdatingProfile}
-                    className="h-11 px-6 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black font-semibold text-sm rounded-xl shadow-md transition-all active:scale-[0.98] disabled:opacity-20 flex items-center gap-2 group hover:opacity-90 cursor-pointer"
+                    className="h-11 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-xl shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98] disabled:opacity-30 flex items-center gap-2 group cursor-pointer"
                   >
-                    <Save size={15} />
+                    <Save size={16} />
                     <span>{isUpdatingProfile ? "Saving Profile..." : "Save Profile Changes"}</span>
                   </button>
                 </div>
               </form>
             </div>
 
-            {/* Password Configuration Section */}
-            <div className="bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 md:p-8 shadow-xl space-y-6">
+            {/* Password Section */}
+            <div className="bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 md:p-8 shadow-sm space-y-6">
               <div className="flex items-center gap-3 border-b border-zinc-100 dark:border-zinc-900/60 pb-4">
-                <div className="w-8 h-8 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-lg flex items-center justify-center shadow-sm">
-                  <Lock size={16} />
+                <div className="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-violet-600 text-white rounded-xl flex items-center justify-center shadow-md shadow-indigo-500/20">
+                  <Lock size={20} />
                 </div>
-                <h2 className="text-md font-bold tracking-tight">Security Credentials</h2>
+                <div>
+                  <h2 className="text-base font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Security Credentials</h2>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">Change your password to keep your account safe</p>
+                </div>
               </div>
 
               {passwordAlert.show && (
                 <div className={`p-4 border rounded-xl flex items-start gap-3 text-xs font-medium transition-all duration-300 ${
                   passwordAlert.type === "success" 
-                    ? "bg-emerald-500/5 border-emerald-500/10 text-emerald-600 dark:text-emerald-400" 
-                    : "bg-red-500/5 border-red-500/10 text-red-600 dark:text-red-400"
+                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:text-emerald-400" 
+                    : "bg-rose-500/10 border-rose-500/20 text-rose-700 dark:text-rose-400"
                 }`}>
                   {passwordAlert.type === "success" ? <CheckCircle2 size={16} className="flex-shrink-0" /> : <AlertCircle size={16} className="flex-shrink-0" />}
                   <span>{passwordAlert.message}</span>
@@ -265,7 +284,7 @@ const handleLogout = async () => {
                     id="currentPassword"
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
-                    className="w-full p-3 border border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-sm focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors outline-none"
+                    className="w-full p-3.5 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl bg-white/80 dark:bg-zinc-900/80 text-zinc-800 dark:text-zinc-200 text-sm focus:border-indigo-500 dark:focus:border-indigo-500 transition-colors outline-none"
                     required
                   />
                 </div>
@@ -273,27 +292,27 @@ const handleLogout = async () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="newPassword" className="block text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      New Security Key
+                      New Password
                     </label>
                     <input
                       type="password"
                       id="newPassword"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="w-full p-3 border border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-sm focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors outline-none"
+                      className="w-full p-3.5 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl bg-white/80 dark:bg-zinc-900/80 text-zinc-800 dark:text-zinc-200 text-sm focus:border-indigo-500 dark:focus:border-indigo-500 transition-colors outline-none"
                       required
                     />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="confirmPassword" className="block text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      Verify New Security Key
+                      Confirm New Password
                     </label>
                     <input
                       type="password"
                       id="confirmPassword"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="w-full p-3 border border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-sm focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors outline-none"
+                      className="w-full p-3.5 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl bg-white/80 dark:bg-zinc-900/80 text-zinc-800 dark:text-zinc-200 text-sm focus:border-indigo-500 dark:focus:border-indigo-500 transition-colors outline-none"
                       required
                     />
                   </div>
@@ -303,10 +322,10 @@ const handleLogout = async () => {
                   <button
                     type="submit"
                     disabled={isUpdatingPassword}
-                    className="h-11 px-6 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black font-semibold text-sm rounded-xl shadow-md transition-all active:scale-[0.98] disabled:opacity-20 flex items-center gap-2 group hover:opacity-90 cursor-pointer"
+                    className="h-11 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-xl shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98] disabled:opacity-30 flex items-center gap-2 group cursor-pointer"
                   >
-                    <Save size={15} />
-                    <span>{isUpdatingPassword ? "Updating Token..." : "Update Security Matrix"}</span>
+                    <Save size={16} />
+                    <span>{isUpdatingPassword ? "Updating Password..." : "Update Password"}</span>
                   </button>
                 </div>
               </form>
@@ -314,30 +333,33 @@ const handleLogout = async () => {
 
           </div>
 
-          {/* Right Column: Layout Actions, Side Panels and Token Disconnects */}
+          {/* Right Column: Theme & Session Controls */}
           <div className="lg:col-span-5 space-y-6">
             
-            {/* Visual Customization Workspace Block */}
-            <div className="bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-5 shadow-sm space-y-4">
+            {/* Visual Customization Card */}
+            <div className="bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 shadow-sm space-y-4">
               <div className="flex items-center gap-2.5 border-b border-zinc-100 dark:border-zinc-900/60 pb-3">
-                <Paintbrush size={16} className="text-zinc-400" />
-                <span className="text-xs uppercase font-bold tracking-wider text-zinc-400 dark:text-zinc-500">Appearance Theme Engine</span>
+                <Paintbrush size={16} className="text-indigo-500" />
+                <span className="text-xs uppercase font-bold tracking-wider text-zinc-400 dark:text-zinc-500">Appearance Settings</span>
               </div>
               
-              <div className="flex items-center justify-between bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200/60 dark:border-zinc-800/80 p-4 rounded-xl">
-                <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Environment Theme</span>
+              <div className="flex items-center justify-between bg-zinc-50/80 dark:bg-zinc-900/40 border border-zinc-200/60 dark:border-zinc-800/80 p-4 rounded-xl">
+                <div>
+                  <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">Theme Mode</p>
+                  <p className="text-xs text-zinc-400">Switch between light and dark themes</p>
+                </div>
                 <button
                   onClick={toggleTheme}
-                  className="h-9 px-4 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black font-semibold text-xs rounded-xl shadow-md hover:opacity-90 active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
+                  className="h-10 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl shadow-md shadow-indigo-500/20 hover:opacity-90 active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
                 >
                   {theme === "dark" ? (
                     <>
-                      <Sun size={14} />
+                      <Sun size={15} />
                       <span>Light Mode</span>
                     </>
                   ) : (
                     <>
-                      <Moon size={14} />
+                      <Moon size={15} />
                       <span>Dark Mode</span>
                     </>
                   )}
@@ -345,23 +367,23 @@ const handleLogout = async () => {
               </div>
             </div>
 
-            {/* Session Management Area */}
-            <div className="bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-5 shadow-sm space-y-4">
+            {/* Session Management Card */}
+            <div className="bg-white/70 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 shadow-sm space-y-4">
               <div className="flex items-center gap-2.5 border-b border-zinc-100 dark:border-zinc-900/60 pb-3">
-                <ShieldAlert size={16} className="text-red-500/80" />
-                <span className="text-xs uppercase font-bold tracking-wider text-zinc-400 dark:text-zinc-500">Session Workspace Terminus</span>
+                <ShieldAlert size={16} className="text-rose-500" />
+                <span className="text-xs uppercase font-bold tracking-wider text-zinc-400 dark:text-zinc-500">Session Controls</span>
               </div>
               
-              <p className="text-xs text-zinc-400 dark:text-zinc-500 leading-relaxed px-1">
-                Terminating your environment clears browser tokens and state registers. You will need to re-authenticate to gain access again.
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                Signing out clears active login tokens from this device. You will need your password to log back in.
               </p>
 
               <button
                 onClick={handleLogout}
-                className="h-11 w-full bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/20 font-semibold rounded-xl text-sm shadow-sm active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="h-11 w-full bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 font-semibold rounded-xl text-sm active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <LogOut size={14} />
-                <span>Disconnect Active Session</span>
+                <LogOut size={16} />
+                <span>Log Out of Session</span>
               </button>
             </div>
 
