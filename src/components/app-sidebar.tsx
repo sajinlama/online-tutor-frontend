@@ -46,21 +46,28 @@ export function AppSidebar() {
   }, []);
 
   const handleLogout = async () => {
-    try {
-      await fetch(`${VITE_BACKEND_URI}/api/logout`, {
-        method: "POST",
-        credentials: "include",  
-      });
-      console.log("clicked in the logout")
-    } catch (error) {
-      console.error("Logout error:", error);
-    } finally {
+  try {
+    console.log(VITE_BACKEND_URI);
+    const response = await fetch(`${VITE_BACKEND_URI}/api/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    console.log("clicked in the logout");
+
+    if (response.ok) {
+      // success — clear storage and redirect
       localStorage.removeItem("name");
       localStorage.removeItem("email");
       localStorage.removeItem("userId");
       window.location.href = "/login";
+    } else {
+      console.error("Logout failed with status:", response.status);
     }
-  };
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+};
 
   return (
     <Sidebar 
