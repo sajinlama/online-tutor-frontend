@@ -60,7 +60,7 @@ export function AppSidebar() {
       localStorage.removeItem("name");
       localStorage.removeItem("email");
       localStorage.removeItem("userId");
-      window.location.href = "/login";
+      window.location.href = "/";
     } else {
       console.error("Logout failed with status:", response.status);
     }
