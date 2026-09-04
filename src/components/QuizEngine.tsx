@@ -45,7 +45,12 @@ export default function QuizEngine({
   useEffect(() => {
     const getQuestions = async () => {
       try {
-        const res = await axios.get(getEndpoint);
+        const res = await axios.get(getEndpoint, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         setQuestions(res.data);
         setLoading(false);
         setTimerActive(true);
@@ -156,12 +161,21 @@ export default function QuizEngine({
       const chapterName = questions[0]?.chapterName || "General Evaluation";
       const level = questions[0]?.level || "Standard";
 
-      const response = await axios.post(submitEndpoint, {
-        userId,
-        chapterName,
-        answers: answersToSubmit,
-        level,
-      });
+      const response = await axios.post(
+        submitEndpoint,
+        {
+          userId,
+          chapterName,
+          answers: answersToSubmit,
+          level,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       setScore(response.data.correctAnswers);
       setFeedback(response.data.feedback);

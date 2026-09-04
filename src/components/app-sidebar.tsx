@@ -47,7 +47,7 @@ export function AppSidebar() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`${VITE_BACKEND_URI}/api/logout`, {
+      const response = await fetch(`${VITE_BACKEND_URI}/api/v1/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

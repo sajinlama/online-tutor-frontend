@@ -5,7 +5,8 @@ import axios from "axios";
 import { VITE_BACKEND_URI } from "@/config/env";
 import { 
   Save, Moon, Sun, LogOut, User, Lock, Paintbrush, 
-  ShieldAlert, AlertCircle, CheckCircle2, Sparkles, BookOpen 
+  ShieldAlert, AlertCircle, CheckCircle2, Sparkles, BookOpen,
+  Eye, EyeOff
 } from "lucide-react";
 import { useTheme } from "@/contexapi/themeprovider";
 
@@ -26,6 +27,11 @@ export default function Setting() {
   
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
+  
+  // Password visibility states
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   
   const { theme, toggleTheme } = useTheme();
 
@@ -68,7 +74,10 @@ export default function Setting() {
       await axios.post(
         API_ENDPOINTS.CHANGE_PASSWORD, 
         { userId: user.userId, currentPassword, newPassword },
-        { withCredentials: true, headers: { "Content-Type": "application/json" } }
+        { 
+          withCredentials: true, 
+          headers: { "Content-Type": "application/json" } 
+        }
       );
       setPasswordAlert({ show: true, message: "Password updated successfully.", type: "success" });
       setCurrentPassword("");
@@ -92,7 +101,10 @@ export default function Setting() {
       await axios.put(
         API_ENDPOINTS.UPDATE_PROFILE,
         { userId: user.userId, name: newName },
-        { withCredentials: true, headers: { "Content-Type": "application/json" } }
+        { 
+          withCredentials: true, 
+          headers: { "Content-Type": "application/json" } 
+        }
       );
       localStorage.setItem("name", newName);
       setUser(prev => ({ ...prev, name: newName }));
@@ -110,7 +122,10 @@ export default function Setting() {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${VITE_BACKEND_URI}/api/logout`, { method: "POST", credentials: "include" });
+      await fetch(`${VITE_BACKEND_URI}/api/logout`, { 
+        method: "POST", 
+        credentials: "include" 
+      });
     } catch (err) {
       console.error("Logout failed", err);
     } finally {
@@ -118,6 +133,41 @@ export default function Setting() {
       window.location.href = "/login";
     }
   };
+
+  // Password input with toggle
+  const PasswordInput = ({ 
+    value, 
+    onChange, 
+    placeholder, 
+    showPassword, 
+    setShowPassword,
+    label,
+    required = false
+  }: any) => (
+    <div className="space-y-1">
+      <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+        {label}
+      </label>
+      <div className="relative">
+        <input
+          type={showPassword ? "text" : "password"}
+          value={value}
+          onChange={onChange}
+          className="w-full h-9 px-3 pr-10 border border-zinc-200 dark:border-zinc-800/80 rounded-xl bg-[#fafafa] dark:bg-[#0b0b0e] text-zinc-900 dark:text-zinc-100 text-xs focus:border-zinc-400 dark:focus:border-zinc-600 outline-none transition-colors"
+          placeholder={placeholder}
+          required={required}
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors cursor-pointer"
+          tabIndex={-1}
+        >
+          {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="w-full h-full bg-[#fafafa] dark:bg-[#030303] text-zinc-900 dark:text-zinc-100 font-sans selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black antialiased relative p-4 md:p-6 transition-colors duration-300 flex flex-col justify-between overflow-hidden">
@@ -265,48 +315,36 @@ export default function Setting() {
                   </div>
                 )}
 
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                    Current Password
-                  </label>
-                  <input
-                    type="password"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                    className="w-full h-9 px-3 border border-zinc-200 dark:border-zinc-800/80 rounded-xl bg-[#fafafa] dark:bg-[#0b0b0e] text-zinc-900 dark:text-zinc-100 text-xs focus:border-zinc-400 dark:focus:border-zinc-600 outline-none transition-colors"
-                    placeholder="••••••••"
-                    required
-                  />
-                </div>
+                <PasswordInput
+                  label="Current Password"
+                  value={currentPassword}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCurrentPassword(e.target.value)}
+                  placeholder="••••••••"
+                  showPassword={showCurrentPassword}
+                  setShowPassword={setShowCurrentPassword}
+                  required
+                />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      New Password
-                    </label>
-                    <input
-                      type="password"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                      className="w-full h-9 px-3 border border-zinc-200 dark:border-zinc-800/80 rounded-xl bg-[#fafafa] dark:bg-[#0b0b0e] text-zinc-900 dark:text-zinc-100 text-xs focus:border-zinc-400 dark:focus:border-zinc-600 outline-none transition-colors"
-                      placeholder="8+ characters"
-                      required
-                    />
-                  </div>
+                  <PasswordInput
+                    label="New Password"
+                    value={newPassword}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)}
+                    placeholder="8+ characters"
+                    showPassword={showNewPassword}
+                    setShowPassword={setShowNewPassword}
+                    required
+                  />
 
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                      Confirm New
-                    </label>
-                    <input
-                      type="password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="w-full h-9 px-3 border border-zinc-200 dark:border-zinc-800/80 rounded-xl bg-[#fafafa] dark:bg-[#0b0b0e] text-zinc-900 dark:text-zinc-100 text-xs focus:border-zinc-400 dark:focus:border-zinc-600 outline-none transition-colors"
-                      placeholder="••••••••"
-                      required
-                    />
-                  </div>
+                  <PasswordInput
+                    label="Confirm New"
+                    value={confirmPassword}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
+                    placeholder="••••••••"
+                    showPassword={showConfirmPassword}
+                    setShowPassword={setShowConfirmPassword}
+                    required
+                  />
                 </div>
               </form>
             </div>
@@ -342,7 +380,7 @@ export default function Setting() {
             </div>
 
             {/* Logout Card */}
-            <div className="bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-4 shadow-sm flex flex-col justify-between gap-4">
+            <div className="bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-4 shadow-sm flex flex-col justify-between gap-4 flex-1 min-h-0">
               <div className="space-y-2">
                 <div className="flex items-center gap-2 border-b border-zinc-100 dark:border-zinc-900/60 pb-2">
                   <ShieldAlert size={15} className="text-rose-500" />
