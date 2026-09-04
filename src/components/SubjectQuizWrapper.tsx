@@ -1,6 +1,6 @@
 import { useParams, Navigate } from "react-router-dom";
 import QuizEngine from "./QuizEngine";
-import { BACKEND_URI } from "@/config/env";
+import { VITE_BACKEND_URI } from "@/config/env";
 
 type SubjectConfig = {
   name: string;
@@ -11,20 +11,20 @@ type SubjectConfig = {
 const SUBJECT_CONFIG: Record<string, SubjectConfig> = {
   maths: {
     name: "Mathematics",
-    get: `${BACKEND_URI}/api/v1/maths/getMaths`,
-    submit: `${BACKEND_URI}/api/v1/maths/update`,
+    get: `${VITE_BACKEND_URI}/api/v1/maths/getMaths`,
+    submit: `${VITE_BACKEND_URI}/api/v1/maths/update`,
   },
 
   science: {
     name: "Science",
-    get: `${BACKEND_URI}/api/v1/science/getScience`,
-    submit: `${BACKEND_URI}/api/v1/science/update`,
+    get: `${VITE_BACKEND_URI}/api/v1/science/getScience`,
+    submit: `${VITE_BACKEND_URI}/api/v1/science/update`,
   },
 
   english: {
     name: "English",
-    get: `${BACKEND_URI}/api/v1/english/getEnglish`,
-    submit: `${BACKEND_URI}/api/v1/english/update`,
+    get: `${VITE_BACKEND_URI}/api/v1/english/getEnglish`,
+    submit: `${VITE_BACKEND_URI}/api/v1/english/update`,
   },
 };
 
