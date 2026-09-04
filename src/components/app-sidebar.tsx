@@ -7,7 +7,7 @@ import {
   Atom, 
   Globe, 
   Variable, 
-  Sparkles 
+  BookOpen
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -46,57 +46,48 @@ export function AppSidebar() {
   }, []);
 
   const handleLogout = async () => {
-  try {
-    console.log(VITE_BACKEND_URI);
-    const response = await fetch(`${VITE_BACKEND_URI}/api/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
+    try {
+      const response = await fetch(`${VITE_BACKEND_URI}/api/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
 
-    console.log("clicked in the logout");
-
-    if (response.ok) {
-      // success — clear storage and redirect
-      localStorage.removeItem("name");
-      localStorage.removeItem("email");
-      localStorage.removeItem("userId");
-      window.location.href = "/";
-    } else {
-      console.error("Logout failed with status:", response.status);
+      if (response.ok) {
+        localStorage.removeItem("name");
+        localStorage.removeItem("email");
+        localStorage.removeItem("userId");
+        window.location.href = "/";
+      } else {
+        console.error("Logout failed with status:", response.status);
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
     }
-  } catch (error) {
-    console.error("Logout error:", error);
-  }
-};
+  };
 
   return (
     <Sidebar 
       collapsible="icon" 
       variant="floating" 
-      className="border-zinc-200/80 dark:border-zinc-800/80 backdrop-blur-xl bg-white/70 dark:bg-zinc-950/60 shadow-lg font-sans transition-all duration-300"
+      className="border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-950 shadow-sm font-sans transition-colors duration-300"
     >
       {/* Brand Header */}
       <SidebarHeader className="p-4 border-b border-zinc-100 dark:border-zinc-900/60">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 text-white flex items-center justify-center font-bold text-sm shadow-md shadow-indigo-500/20 flex-shrink-0">
-            <Sparkles size={16} />
+        <Link to="/" className="flex items-center space-x-2.5 group cursor-pointer">
+          <div className="w-9 h-9 bg-zinc-900 dark:bg-zinc-100 rounded-xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300 shadow-sm flex-shrink-0">
+            <BookOpen className="h-4 w-4 text-white dark:text-black" />
           </div>
-          <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-            <span className="font-extrabold text-sm tracking-tight text-zinc-900 dark:text-zinc-100">
-              EduMentor
-            </span>
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-              Learning Suite
-            </span>
-          </div>
-        </div>
+          <span className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 group-data-[collapsible=icon]:hidden">
+            EduMentor
+          </span>
+        </Link>
       </SidebarHeader>
 
       {/* Navigation Sections */}
-      <SidebarContent className="px-2 py-3 space-y-4">
+      <SidebarContent className="px-3 py-4 space-y-5">
         {/* Main Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 px-3 mb-1">
+          <SidebarGroupLabel className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 px-3 mb-2">
             Overview
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -108,14 +99,14 @@ export function AppSidebar() {
                     <SidebarMenuButton 
                       asChild 
                       tooltip={item.title}
-                      className={`w-full h-10 px-3 rounded-xl transition-all font-medium text-xs flex items-center gap-3 cursor-pointer ${
+                      className={`w-full h-10 px-3.5 rounded-xl transition-all text-xs font-bold uppercase tracking-wider flex items-center gap-3 cursor-pointer ${
                         isActive
-                          ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/20 font-semibold"
-                          : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100"
+                          ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black shadow-sm"
+                          : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900"
                       }`}
                     >
                       <Link to={item.url}>
-                        <item.icon className={`h-4 w-4 ${isActive ? "text-white" : "text-zinc-400"}`} />
+                        <item.icon className={`h-4 w-4 ${isActive ? "text-white dark:text-black" : "text-zinc-400"}`} />
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
@@ -128,7 +119,7 @@ export function AppSidebar() {
 
         {/* Subjects Quiz Section */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 px-3 mb-1">
+          <SidebarGroupLabel className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 px-3 mb-2">
             Assessment Quizzes
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -140,14 +131,14 @@ export function AppSidebar() {
                     <SidebarMenuButton 
                       asChild 
                       tooltip={item.title}
-                      className={`w-full h-10 px-3 rounded-xl transition-all font-medium text-xs flex items-center gap-3 cursor-pointer ${
+                      className={`w-full h-10 px-3.5 rounded-xl transition-all text-xs font-bold uppercase tracking-wider flex items-center gap-3 cursor-pointer ${
                         isActive
-                          ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/20 font-semibold"
-                          : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100"
+                          ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black shadow-sm"
+                          : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900"
                       }`}
                     >
                       <Link to={item.url}>
-                        <item.icon className={`h-4 w-4 ${isActive ? "text-white" : "text-zinc-400"}`} />
+                        <item.icon className={`h-4 w-4 ${isActive ? "text-white dark:text-black" : "text-zinc-400"}`} />
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
@@ -159,29 +150,29 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      {/* User Footer Card */}
+      {/* User Profile Footer */}
       <SidebarFooter className="p-3 border-t border-zinc-100 dark:border-zinc-900/60">
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="flex items-center justify-between w-full p-2 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-sm transition-all group-data-[collapsible=icon]:justify-center">
+            <div className="flex items-center justify-between w-full p-2 bg-[#fafafa] dark:bg-[#0b0b0e] rounded-xl border border-zinc-200 dark:border-zinc-800/80 shadow-sm transition-all group-data-[collapsible=icon]:justify-center">
               
               <div className="flex items-center gap-2.5 min-w-0 group-data-[collapsible=icon]:hidden">
-                <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-900/60 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-sm">
                   {username?.charAt(0).toUpperCase()}
                 </div>
                 <div className="flex flex-col min-w-0">
-                  <span className="font-semibold text-xs text-zinc-800 dark:text-zinc-200 truncate">
+                  <span className="font-bold text-xs text-zinc-800 dark:text-zinc-200 truncate">
                     {username}
                   </span>
-                  <span className="text-[10px] text-zinc-400 truncate">
-                    Student Account
+                  <span className="text-[10px] text-zinc-400 dark:text-zinc-500 truncate">
+                    Student Workspace
                   </span>
                 </div>
               </div>
 
               <button 
                 onClick={handleLogout}
-                className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors p-2 rounded-lg hover:bg-rose-500/10 text-zinc-400 cursor-pointer flex-shrink-0"
+                className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors p-2 rounded-lg hover:bg-rose-500/10 text-zinc-400 cursor-pointer flex-shrink-0 active:scale-95"
                 aria-label="Log out"
                 title="Log out"
               >

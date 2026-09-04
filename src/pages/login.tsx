@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const URL = `${VITE_BACKEND_URI}/api/login`;
+console.log(URL);
 
 export default function Login() {
   const navigate = useNavigate();

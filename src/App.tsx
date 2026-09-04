@@ -1,14 +1,14 @@
   import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-  import Register from "./components/register";
-  import Login from "./components/login";
+  import Register from "./pages/register";
+  import Login from "./pages/login";
   import Layout from "./components/layout";
-  import Dashboard from "./components/dashboard";
+  import Dashboard from "./pages/dashboard";
 
   import ProtectedRoute from "./components/protectedRoutes";
-  import Homepage from "./components/homepage";
+  import Homepage from "./pages/homepage";
   import SubjectQuizWrapper from "./components/SubjectQuizWrapper";
-import Setting from "./components/setting";
+import Setting from "./pages/setting";
 
   function App() {
     return (
