@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { VITE_BACKEND_URI } from "@/config/env";
+import { BACKEND_URI } from "@/config/env";
 import axios from "axios";
 
 const ProtectedRoute = () => {
@@ -11,7 +11,7 @@ const ProtectedRoute = () => {
     const checkAuth = async () => {
       try {
         const res = await axios.get(
-          `${VITE_BACKEND_URI}/api/v1/auth/verify`,
+          `${BACKEND_URI}/api/v1/auth/verify`,
           { withCredentials: true }
         );
 

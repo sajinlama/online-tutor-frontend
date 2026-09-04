@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { VITE_BACKEND_URI } from "@/config/env";
+import { BACKEND_URI } from "@/config/env";
 import {
   Sidebar,
   SidebarContent,
@@ -47,7 +47,7 @@ export function AppSidebar() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`${VITE_BACKEND_URI}/api/v1/auth/logout`, {
+      const response = await fetch(`${BACKEND_URI}/api/v1/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
