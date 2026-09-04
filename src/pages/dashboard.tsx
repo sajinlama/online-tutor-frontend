@@ -1,6 +1,6 @@
 "use client";
 
-import { Award, Mail, Sparkles, BookOpen, BookCheck, ShieldAlert, GraduationCap, TrendingUp } from "lucide-react";
+import { Award, Sparkles, BookOpen, BookCheck, ShieldAlert, GraduationCap, TrendingUp } from "lucide-react";
 import { LabelList, Pie, PieChart } from "recharts";
 import { useEffect, useState } from "react";
 import { VITE_BACKEND_URI } from "@/config/env";

@@ -5,7 +5,7 @@ import axios from "axios";
 import { VITE_BACKEND_URI } from "@/config/env";
 import { 
   Save, Moon, Sun, LogOut, User, Lock, Paintbrush, 
-  ShieldAlert, AlertCircle, CheckCircle2, Sparkles, BookOpen,
+  ShieldAlert, AlertCircle, CheckCircle2, Sparkles, 
   Eye, EyeOff
 } from "lucide-react";
 import { useTheme } from "@/contexapi/themeprovider";
