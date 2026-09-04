@@ -11,14 +11,13 @@ const ProtectedRoute = () => {
     const checkAuth = async () => {
       try {
         const res = await axios.get(
-          `${VITE_BACKEND_URI}/api/auth/verify`,
+          `${VITE_BACKEND_URI}/api/v1/auth/verify`,
           { withCredentials: true }
         );
 
         if (res.data.authenticated) {
           setIsAuthenticated(true);
 
-          // Optional: store userId if needed
           if (res.data.user?.userId) {
             localStorage.setItem("userId", res.data.user.userId);
           }

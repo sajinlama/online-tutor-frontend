@@ -9,7 +9,7 @@ import { VITE_BACKEND_URI } from "@/config/env";
 
 import axios from "axios";
 
-const URI = `${VITE_BACKEND_URI}/api/register`;
+const URI = `${VITE_BACKEND_URI}/api/v1/auth/register`;
 
 export default function Register() {
   const navigate = useNavigate();

@@ -27,23 +27,28 @@ function Dashboard() {
   const username = localStorage.getItem('name') || "Student";
   const useremail = localStorage.getItem('email') || "student@edumentor.com";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${VITE_BACKEND_URI}/api/getTotal`, {
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `${VITE_BACKEND_URI}/api/v1/score/getTotal`,
+        {
           credentials: "include"
-        });
-        const data = await response.json();
-        setUserData(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      }
-    };
+        }
+      );
 
-    fetchData();
-  }, []);
+      const data = await response.json();
+
+      setUserData(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
 
   if (loading) {
     return (

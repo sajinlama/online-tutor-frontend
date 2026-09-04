@@ -3,10 +3,10 @@ import { VITE_BACKEND_URI } from "@/config/env";
 
 export default function English() {
   return (
-    <QuizEngine 
+    <QuizEngine
       subjectName="English"
-      getEndpoint={`${VITE_BACKEND_URI}/api/getEnglishQuestion`}
-      submitEndpoint={`${VITE_BACKEND_URI}/api/updateEng"`}
+      getEndpoint={`${VITE_BACKEND_URI}/api/v1/english/getEnglish`}
+      submitEndpoint={`${VITE_BACKEND_URI}/api/v1/english/update`}
     />
   );
 }

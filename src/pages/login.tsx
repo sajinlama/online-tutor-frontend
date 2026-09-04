@@ -9,7 +9,7 @@ import { Eye, EyeOff, BookOpen, ArrowRight, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const URL = `${VITE_BACKEND_URI}/api/login`;
+const URL = `${VITE_BACKEND_URI}/api/v1/auth/login`;
 console.log(URL);
 
 export default function Login() {

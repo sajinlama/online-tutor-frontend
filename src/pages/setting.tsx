@@ -10,8 +10,8 @@ import {
 import { useTheme } from "@/contexapi/themeprovider";
 
 const API_ENDPOINTS = {
-  CHANGE_PASSWORD: `${VITE_BACKEND_URI}/api/users/change-password`,
-  UPDATE_PROFILE: `${VITE_BACKEND_URI}/api/users/update-profile`,
+  CHANGE_PASSWORD: `${VITE_BACKEND_URI}/api/v1/profile/update-password`,
+  UPDATE_PROFILE: `${VITE_BACKEND_URI}/api/v1/profile/update-profile`,
 };
 
 export default function Setting() {
