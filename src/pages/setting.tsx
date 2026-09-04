@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { BACKEND_URI } from "@/config/env";
+import { VITE_BACKEND_URI } from "@/config/env";
 import { 
   Save, Moon, Sun, LogOut, User, Lock, Paintbrush, 
   ShieldAlert, AlertCircle, CheckCircle2, Sparkles, 
@@ -11,8 +11,8 @@ import {
 import { useTheme } from "@/contexapi/themeprovider";
 
 const API_ENDPOINTS = {
-  CHANGE_PASSWORD: `${BACKEND_URI}/api/v1/profile/update-password`,
-  UPDATE_PROFILE: `${BACKEND_URI}/api/v1/profile/update-profile`,
+  CHANGE_PASSWORD: `${VITE_BACKEND_URI}/api/v1/profile/update-password`,
+  UPDATE_PROFILE: `${VITE_BACKEND_URI}/api/v1/profile/update-profile`,
 };
 
 export default function Setting() {
@@ -122,7 +122,7 @@ export default function Setting() {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${BACKEND_URI}/api/logout`, { 
+      await fetch(`${VITE_BACKEND_URI}/api/logout`, { 
         method: "POST", 
         credentials: "include" 
       });
